@@ -4,6 +4,20 @@
     <title>Log in</title>
 </head>
 <body>
-
+<div class="container">
+    {%if error%}
+    <p class="font-weight-bold text-danger">{{error}}</p>
+    {%endif%}
+    <h2>Log in!</h2>
+    <form method="POST" action="{%url 'login'%}">
+        {% csrf_token %}
+        Username: <br/>
+        <input type="text" name="username"/><br/>
+        Password: <br/>
+        <input type="password" name="password"/><br/>
+        <br/><br/>
+        <input class="btn btn-primary" type="submit" value="Log in!"/>
+    </form>
+</div>
 </body>
 {%endblock%}
