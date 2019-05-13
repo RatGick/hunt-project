@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{%block content%}
+<head>
+    <title>Create a new project</title>
+</head>
+<body>
+<div class="container">
+    {%if error%}
+    <p class="font-weight-bold text-danger">{{error}}</p>
+    {%endif%}
+    <h2>Create a new product!</h2>
+    <form method="POST" action="{%url 'create'%}" enctype="multipart/form-data">
+        {% csrf_token %}
+        Title: <br/>
+        <input type="text" name="title"/><br/>
+        URL: <br/>
+        <input type="text" name="url"/><br/>
+        Image: <br/>
+        <input type="file" name="image"/><br/>
+        Icon: <br/>
+        <input type="file" name="icon"/><br/>
+        Description: <br/>
+        <textarea cols="50" rows="5" name="text"></textarea><br/>
+        <br/>
+        <input class="btn btn-primary" type="submit" value="Create!"/>
+    </form>
+</div>
+</body>
+{%endblock%}
