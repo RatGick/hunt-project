@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Item
 from django.contrib.auth.decorators import login_required
+from .models import Item
 # Create your views here.
 
 
@@ -28,8 +28,7 @@ def create(request):
             item_object.image = request.FILES['image']
             item_object.user = request.user
             item_object.save()
-            # TODO Change redirect to current item page
-            return redirect('home')
+            return redirect('/products/' + str(item_object.id))
         else:
             return render(request, 'products/create.html', {'error': 'All fields are required.'})
     else:
