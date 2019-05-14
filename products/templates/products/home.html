@@ -8,7 +8,30 @@
     <title>Home</title>
 </head>
 <body>
-<h1>This is the home page</h1>
+{% for item in items.all %}
+<div class="row pt-3">
+    <div class="col-md-3" onclick="window.location='{%url 'item' item.id%}'" style="cursor:pointer;">
+        <img src="{{item.icon.url}}" class="img-fluid"/>
+    </div>
+    <div class="col-md-6">
+        <a href="{%url 'item' item.id%}"><h3>{{item.title}}</h3></a>
+        <span class="d-inline-block text-left font-weight-bold">{{item.user}}</span> on <span class="d-inline-block text-right">{{item.pub_date_pretty}}</span>
+        <p class="text-break">{{item.summary}}</p>
+    </div>
+    <div class="col-md-3">
+        <a href="javascript:{document.getElementById('upvote-button-{{item.id}}').submit()}">
+            <button class="btn btn-primary btn-block">
+                <span class="oi oi-chevron-top"></span> Upvote ({{item.votes_total}})
+            </button>
+        </a>
+    </div>
+
+</div>
+<form method="POST" id="upvote-button-{{item.id}}" action="{%url 'upvote' item.id%}">
+    {%csrf_token%}
+    <input type="hidden">
+</form>
+{% endfor %}
 </body>
 </html>
 

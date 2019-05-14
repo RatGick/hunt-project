@@ -22,9 +22,9 @@
             <a href="{{item.image.url}}"><img src="{{item.image.url}}" class="img-fluid"/></a><br/>
         </div>
         <div class="col-4">
-            <a href="">
-                <button class="btn btn-primary btn-lg btn-block"><span class="oi oi-chevron-top"></span> Upvote
-                    ({{item.votes_total}})
+            <a href="javascript:{document.getElementById('upvote-button').submit()}">
+                <button class="btn btn-primary btn-lg btn-block">
+                    <span class="oi oi-chevron-top"></span> Upvote ({{item.votes_total}})
                 </button>
             </a>
         </div>
@@ -44,6 +44,10 @@
     </div>
 </div>
 </body>
+<form method="POST" id="upvote-button" action="{%url 'upvote' item.id%}">
+    {%csrf_token%}
+    <input type="hidden">
+</form>
 </html>
 
 {% endblock %}

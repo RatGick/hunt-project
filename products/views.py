@@ -5,7 +5,8 @@ from .models import Item
 
 
 def home(request):
-    return render(request, 'products/home.html')
+    items = Item.objects
+    return render(request, 'products/home.html', {'items': items})
 
 
 def item(request, item_id):
@@ -33,3 +34,11 @@ def create(request):
             return render(request, 'products/create.html', {'error': 'All fields are required.'})
     else:
         return render(request, 'products/create.html')
+
+@login_required
+def upvote(request, item_id):
+    if request.method == 'POST':
+        item_object = get_object_or_404(Item, pk=item_id)
+        item_object.votes_total += 1
+        item_object.save()
+        return redirect('/products/' + str(item_object.id))
